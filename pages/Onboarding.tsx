@@ -1,15 +1,6 @@
+'use client';
+
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Onboarding: undefined;
-  Home: undefined;
-};
-
-type OnboardingScreenProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
-};
 
 interface OnboardingSlide {
   title: string;
@@ -42,118 +33,57 @@ const onboardingScreens: OnboardingSlide[] = [
   }
 ];
 
-export default function Onboarding({ navigation }: OnboardingScreenProps) {
+export default function Onboarding() {
   const [currentScreen, setCurrentScreen] = useState(0);
 
   const handleNext = () => {
     if (currentScreen < onboardingScreens.length - 1) {
       setCurrentScreen(currentScreen + 1);
-    } else {
-      navigation.replace('Home');
     }
   };
 
   const currentSlide = onboardingScreens[currentScreen];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.dot} />
+    <div className="flex min-h-screen bg-[#1A1A1A]">
+      <div className="flex flex-col justify-between p-6 flex-1">
+        <div className="w-10 h-10 rounded-full bg-[#4169E1] mt-16 mx-auto" />
         
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>
+        <div className="flex-1 flex flex-col justify-center items-center px-5">
+          <h1 className="text-3xl text-white text-center font-bold mb-5">
             {currentSlide.highlight 
               ? currentSlide.title.split(currentSlide.highlight).map((part, index, array) => (
                   <React.Fragment key={index}>
                     {part}
                     {index < array.length - 1 && (
-                      <Text style={styles.highlightText}>{currentSlide.highlight}</Text>
+                      <span className="text-[#4169E1]">{currentSlide.highlight}</span>
                     )}
                   </React.Fragment>
                 ))
               : currentSlide.title
             }
-          </Text>
+          </h1>
           
           {currentSlide.description && (
-            <Text style={styles.description}>{currentSlide.description}</Text>
+            <p className="text-lg text-white text-center opacity-80 leading-relaxed">
+              {currentSlide.description}
+            </p>
           )}
           
           {currentSlide.subtitle && (
-            <Text style={styles.subtitle}>{currentSlide.subtitle}</Text>
+            <p className="text-base text-white text-center opacity-70">
+              {currentSlide.subtitle}
+            </p>
           )}
-        </View>
+        </div>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={handleNext}
+        <button 
+          className="bg-[#4169E1] py-4 rounded-xl text-white font-bold text-base mt-10"
+          onClick={handleNext}
         >
-          <Text style={styles.buttonText}>
-            {currentSlide.buttonText || "Toca para continuar"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          {currentSlide.buttonText || "Toca para continuar"}
+        </button>
+      </div>
+    </div>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 24,
-  },
-  dot: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#4169E1',
-    marginTop: 60,
-    alignSelf: 'center',
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 32,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
-  highlightText: {
-    color: '#4169E1',
-  },
-  description: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    opacity: 0.8,
-    lineHeight: 26,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    opacity: 0.7,
-  },
-  button: {
-    backgroundColor: '#4169E1',
-    paddingVertical: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-}); 
+} 
