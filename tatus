@@ -1,0 +1,5 @@
+[33m7ef47dd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Clean up project structure
+[33m9da4201[m Remove Expo references from next.config.js
+[33me7dd726[m Remove Expo dependencies and simplify to pure Next.js
+[33m30e1767[m Update app with latest changes
+[33m7779074[m Simplify to pure Next.js with CSS
