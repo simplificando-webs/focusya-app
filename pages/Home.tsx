@@ -1,30 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { useRouter } from 'next/router';
 
-type HomeScreenProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
-};
+export default function Home() {
+  const router = useRouter();
 
-export default function Home({ navigation }: HomeScreenProps) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Bienvenido a SpeakFlow</Text>
-    </View>
+    <div className="flex min-h-screen bg-[#1A1A1A] items-center justify-center">
+      <h1 className="text-white text-2xl font-bold">Bienvenido a SpeakFlow</h1>
+    </div>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-}); 
+} 
